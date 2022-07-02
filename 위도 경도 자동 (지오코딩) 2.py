@@ -12,9 +12,10 @@ def get_location(address):
 
   return crd
 info = pd.read_csv("./sample1.csv", encoding = 'cp949',low_memory = False)
+
+#csv파일 처리
 if '지번구분명' in info.columns:
   info.drop(info.columns[[4,13,17,18]],axis = 'columns',inplace =True)
-
 
 delet_index1 = []
 a =info['취소일'].isnull()
@@ -40,6 +41,7 @@ for i in range(len(delet_index2)):
 
 info=info.reset_index(drop=True)
 
+#주소 깔금히 정리
 address=[]
 for i in range(len(info)):
   address_text1 = info.values[i,3]
@@ -79,6 +81,7 @@ driver.get('https://www.juso.go.kr/openIndexPage.do')
 driver.maximize_window()
 
 search_box = driver.find_element(By.NAME, value="searchKeyword")
+
 new_address_list=[]
 for i in range(len(address)):
     search_box.send_keys(address[i])
@@ -87,9 +90,8 @@ for i in range(len(address)):
     new_address_list.append(new_address)
     driver.back()
     driver.find_element(By.XPATH,'//*[@id="AKCFrm"]/fieldset/div/div[1]/a').click()
-    
-print(new_address_list)
 
+# 주소를 위도,경도 
 x=[] #위도
 y=[] #경도
 
