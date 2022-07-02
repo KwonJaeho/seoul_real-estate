@@ -1,5 +1,7 @@
 import pandas as pd
+import numpy as np
 import requests, json
+import math
 
 def get_location(address):
   url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
@@ -90,6 +92,8 @@ for i in range(len(address)):
     new_address_list.append(new_address)
     driver.back()
     driver.find_element(By.XPATH,'//*[@id="AKCFrm"]/fieldset/div/div[1]/a').click()
+
+dirver.quit()
 
 # 주소를 위도,경도 
 x=[] #위도
