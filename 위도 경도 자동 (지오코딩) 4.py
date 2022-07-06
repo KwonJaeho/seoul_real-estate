@@ -13,7 +13,7 @@ import time
 def get_location(address):
   url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
   # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
-  headers = {"Authorization": "KakaoAK eeca092edaae3b706bcedaa77871088d"}
+  headers = {"Authorization": "KakaoAK 개인키"}
   api_json = json.loads(str(requests.get(url,headers=headers).text))
   address = api_json['documents'][0]['address']
   crd = {"lat": str(address['y']), "lng": str(address['x'])}
