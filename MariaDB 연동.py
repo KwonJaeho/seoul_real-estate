@@ -28,11 +28,11 @@ def insert_data_building(conn):
     csv12 = csv['건물용도']
     
     cur = conn.cursor()
-    sql = """INSERT INTO 건물 (Building_ID,자치구코드,자치구명,법정동명,본번,부번,건물명,물건금액,건물면적,토지면적,층,건축년도,건물용도)
-    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+    sql = """INSERT INTO 건물 (자치구코드,자치구명,법정동명,본번,부번,건물명,물건금액,건물면적,토지면적,층,건축년도,건물용도)
+    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
 
     for i in range(len(csv)):
-        cur.execute(sql,(i+1,csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i],csv7[i],csv8[i],csv9[i],csv10[i],csv11[i],csv12[i]))
+        cur.execute(sql,(csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i],csv7[i],csv8[i],csv9[i],csv10[i],csv11[i],csv12[i]))
 
     conn.commit()
 ## 지도 테이블 데이터 삽입
@@ -46,14 +46,14 @@ def insert_data_map(conn):
     csv6 = csv['x']
     csv7 = csv['y']
     cur = conn.cursor()
-    sql = "INSERT INTO 지도(Map_ID,자치구코드,자치구명,본번,부번,건물명,위도,경도) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO 지도(자치구코드,자치구명,본번,부번,건물명,위도,경도) VALUES(%s,%s,%s,%s,%s,%s,%s)"
     for i in range(len(csv)):
-        cur.execute(sql,(i+1,csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i],csv7[i]))
+        cur.execute(sql,(csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i],csv7[i]))
     conn.commit()
 ## 실거래 테이블 데이터 삽입
 def insert_data_deal(conn):
     csv = read_csv()
-    print(csv.info)
+    
     csv1 = csv['접수연도']
     csv2 = csv['본번']
     csv3 = csv['부번']
@@ -61,17 +61,10 @@ def insert_data_deal(conn):
     csv5 = csv['계약일']
     csv6 = csv['물건금액(만원)']
     cur = conn.cursor()
-    sql = "INSERT INTO 실거래(Deal_ID,접수년도,본번,부번,건물명,계약일,물건금액) VALUES(%s,%s,%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO 실거래(접수년도,본번,부번,건물명,계약일,물건금액) VALUES(%s,%s,%s,%s,%s,%s)"
     for i in range(len(csv)):
-        cur.execute(sql,(i+1,csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i]))
+        cur.execute(sql,(csv1[i],csv2[i],csv3[i],csv4[i],csv5[i],csv6[i]))
     conn.commit()
-## 데이터 검색
-def search_data(conn):
-    cur = conn.cursor()
-    sql = "SELECT 자치구코드 from 건물"
-    cur.execute(sql)
-    results = cur.fetchall()
-    print(results)
 ##메인코드
 def main():
     conn = DB_connect()
