@@ -9,7 +9,7 @@ def read_csv():
     return csv
 ## DB연결
 def DB_connect():
-    conn = SQL.connect(host='192.168.0.16',user='wogh',password='7976',db='서울시',charset='utf8',port=3360)
+    conn = SQL.connect(host='IP입력',user='사용자',password='비밀번호',db='DB명',charset='utf8',port=포트번호)
     return conn
 ## 건물 테이블 데이터 삽입
 def insert_data_building(conn):
